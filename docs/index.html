@@ -1,186 +1,344 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>Content HQ</title>
-<style>
-:root{--bg:#0d0f0e;--pan:#151917;--pan2:#1b201d;--ln:#252b28;--ink:#eef3f0;
---mut:#8b968f;--acc:#3ddc84;--acc2:#2bb56a;--warn:#ffb454;--bad:#ff6b6b}
-*{box-sizing:border-box}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0c0e0d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<title>Content HQ</title><style>
+:root{--bg:#0c0e0d;--pan:#141816;--pan2:#1a201d;--ln:#242b27;--ink:#eef3f0;
+--mut:#87938c;--acc:#3ddc84;--amb:#ffb454;--bad:#ff6b6b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{max-width:100%;overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);
 font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-a{color:var(--acc);text-decoration:none}
-.wrap{display:flex;min-height:100vh}
-/* ---- sidebar ---- */
-.side{width:210px;flex-shrink:0;background:var(--pan);border-right:1px solid var(--ln);
-padding:18px 12px;position:sticky;top:0;height:100vh;overflow-y:auto}
-.brand{display:flex;align-items:center;gap:9px;margin-bottom:22px;padding:0 6px}
-.dot{width:26px;height:26px;border-radius:8px;background:var(--acc);flex-shrink:0}
+.app{display:flex;min-height:100vh}
+.side{width:206px;flex-shrink:0;background:var(--pan);border-right:1px solid var(--ln);
+padding:16px 11px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:9px;margin-bottom:18px;padding:0 5px}
+.dot{width:25px;height:25px;border-radius:8px;background:var(--acc);flex-shrink:0}
 .brand b{font-size:15px}
 .navlab{color:var(--mut);font-size:10px;text-transform:uppercase;
-letter-spacing:.11em;margin:16px 6px 7px}
-.nav{display:block;padding:9px 11px;border-radius:9px;color:var(--mut);
-cursor:pointer;font-size:13.5px;margin-bottom:2px;user-select:none}
+letter-spacing:.11em;margin:15px 6px 6px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:6px;
+padding:9px 11px;border-radius:9px;color:var(--mut);cursor:pointer;
+font-size:13.5px;margin-bottom:2px;user-select:none;border:0;width:100%;
+background:none;font-family:inherit;text-align:left}
 .nav:hover{background:var(--pan2);color:var(--ink)}
-input[name=tab]{display:none}
-#t-yt:checked~.wrap .nav[for=t-yt],
-#t-so:checked~.wrap .nav[for=t-so]{background:var(--acc);color:#08120c;font-weight:600}
-.pane{display:none}
-#t-yt:checked~.wrap .pane-yt{display:block}
-#t-so:checked~.wrap .pane-so{display:block}
-/* ---- main ---- */
-.main{flex:1;padding:20px 22px;min-width:0}
-.head{display:flex;justify-content:space-between;align-items:baseline;
-gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.nav.on{background:var(--acc);color:#08120c;font-weight:600}
+.nav.sub{font-size:12.5px;padding-left:20px}
+.nav .n{font-size:11px;opacity:.75;font-variant-numeric:tabular-nums}
+.main{flex:1;padding:18px 20px;min-width:0}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+margin-bottom:16px;flex-wrap:wrap}
 h1{font-size:19px;margin:0}
 .sub{color:var(--mut);font-size:11.5px}
-.cols{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
-.kpis{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
-margin-bottom:16px}
-.card{background:var(--pan);border:1px solid var(--ln);border-radius:13px;padding:14px}
+.cols{display:grid;grid-template-columns:1fr 290px;gap:15px;align-items:start}
+.kpis{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+margin-bottom:15px}
+.card{background:var(--pan);border:1px solid var(--ln);border-radius:13px;padding:13px}
+.card.click{cursor:pointer} .card.click:hover{border-color:var(--acc)}
 .k{color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.09em}
-.v{font-size:25px;font-weight:700;margin-top:4px;line-height:1.1}
+.v{font-size:24px;font-weight:700;margin-top:4px;line-height:1.15}
 .v small{font-size:12px;color:var(--mut);font-weight:400}
-.delta{font-size:11px;margin-top:5px;color:var(--acc)}
-.delta.warn{color:var(--warn)} .delta.bad{color:var(--bad)}
+.d{font-size:11px;margin-top:5px;color:var(--mut)}
+.d.g{color:var(--acc)} .d.a{color:var(--amb)} .d.r{color:var(--bad)}
 .bar{height:5px;background:var(--ln);border-radius:4px;margin-top:8px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--acc);border-radius:4px}
-h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);
-margin:20px 0 9px}
+.bar i{display:block;height:100%;border-radius:4px;background:var(--acc)}
 .panel{background:var(--pan);border:1px solid var(--ln);border-radius:13px;
-padding:15px;margin-bottom:14px}
-.rail .item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--ln)}
-.rail .item:last-child{border-bottom:0}
-.rail .when{color:var(--mut);font-size:11px;font-variant-numeric:tabular-nums;
-width:66px;flex-shrink:0}
-.rail .what{font-size:12.5px;min-width:0;overflow-wrap:anywhere}
-.tag{display:inline-block;font-size:9.5px;padding:1px 6px;border-radius:6px;
-background:var(--pan2);color:var(--mut);border:1px solid var(--ln);margin-left:5px}
-.tag.qc{color:var(--acc);border-color:var(--acc2)}
-.tag.dt{color:var(--warn);border-color:#5a4526}
+padding:14px;margin-bottom:13px}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);
+margin:0 0 9px}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;color:var(--mut);font-weight:500;font-size:10.5px;
 text-transform:uppercase;letter-spacing:.07em;padding:0 6px 7px 0}
-td{padding:7px 6px 7px 0;border-top:1px solid var(--ln);
-font-variant-numeric:tabular-nums}
-td.t{overflow-wrap:anywhere}
-.num{text-align:right;white-space:nowrap}
-.chart{width:100%;height:180px;display:block}
-.legend{display:flex;gap:14px;font-size:11px;color:var(--mut);margin-top:8px}
-.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;
-margin-right:5px;vertical-align:-1px}
-.foot{color:var(--mut);font-size:11px;margin-top:24px;line-height:1.7}
-@media(max-width:860px){
- .wrap{flex-direction:column}
- .side{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;
- gap:6px;padding:12px;border-right:0;border-bottom:1px solid var(--ln)}
- .brand{width:100%;margin-bottom:8px} .navlab{display:none}
- .nav{flex:1;text-align:center;margin:0;min-width:120px}
- .cols{grid-template-columns:1fr} .main{padding:16px 14px}
+td{padding:7px 6px;border-top:1px solid var(--ln);font-variant-numeric:tabular-nums}
+td:first-child{padding-left:0} tr.click{cursor:pointer}
+tr.click:hover td{background:var(--pan2)}
+.t{overflow-wrap:anywhere} .num{text-align:right;white-space:nowrap}
+.tag{display:inline-block;font-size:9.5px;padding:1px 6px;border-radius:6px;
+background:var(--pan2);color:var(--mut);border:1px solid var(--ln);margin-left:5px}
+.tag.qc{color:var(--acc);border-color:#2a6b47}
+.tag.dt{color:var(--amb);border-color:#5a4526}
+.item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--ln)}
+.item:last-child{border-bottom:0}
+.when{color:var(--mut);font-size:11px;font-variant-numeric:tabular-nums;
+width:62px;flex-shrink:0}
+.what{font-size:12.5px;min-width:0;overflow-wrap:anywhere}
+svg.chart{width:100%;height:170px;display:block}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--mut);margin-top:7px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}
+.back{background:none;border:0;color:var(--acc);cursor:pointer;font-size:12.5px;
+padding:0;margin-bottom:10px;font-family:inherit}
+.foot{color:var(--mut);font-size:11px;margin-top:22px;line-height:1.7}
+.stack{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+@media(max-width:880px){
+ .app{flex-direction:column}
+ .side{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:5px;
+ padding:11px;border-right:0;border-bottom:1px solid var(--ln)}
+ .brand{width:100%;margin-bottom:6px} .navlab{display:none}
+ .nav{flex:1;justify-content:center;margin:0;min-width:104px}
+ .nav.sub{padding-left:11px}
+ .cols{grid-template-columns:1fr} .main{padding:14px 13px}
 }
 </style></head><body>
-<input type="radio" name="tab" id="t-yt" checked>
-<input type="radio" name="tab" id="t-so">
-<div class="wrap">
-<div class="side">
-  <div class="brand"><div class="dot"></div><b>Content HQ</b></div>
-  <div class="navlab">Channels</div>
-  <label class="nav" for="t-yt">YouTube</label>
-  <label class="nav" for="t-so">Social</label>
-  <div class="navlab">Updated</div>
-  <div class="sub" style="padding:0 8px">Sat 05 Sep 12:11</div>
+<div class="app">
+  <div class="side">
+    <div class="brand"><div class="dot"></div><b>Content HQ</b></div>
+    <div class="navlab">YouTube</div>
+    <div id="nav"></div>
+  </div>
+  <div class="main" id="main"></div>
 </div>
-<div class="main">
-<div class="pane pane-yt">
-<div class="head"><div><h1>YouTube</h1><div class="sub">2 shorts daily 19:00 &middot; episodes Mon + Thu 09:00</div></div></div>
-<div class="kpis">
-<div class="card"><div class="k">Total views</div><div class="v">2,649</div><div class="delta">97 long-form</div></div>
-<div class="card"><div class="k">Subscribers</div><div class="v">6<small> / 1000</small></div><div class="bar"><i style="width:0.6%"></i></div></div>
-<div class="card"><div class="k">Watch hours</div><div class="v">6<small> / 4,000</small></div><div class="bar"><i style="width:0.15%"></i></div><div class="delta warn">estimated, long-form only</div></div>
-<div class="card"><div class="k">Queue / spend</div><div class="v">23<small> days</small></div><div class="delta">$99 estimated</div></div>
-</div>
-<div class="cols"><div>
-<div class="panel"><div class="k">Views per day</div>
-<svg class="chart" viewBox="0 0 560 180" preserveAspectRatio="none"><line x1="26" x2="534" y1="154" y2="154" stroke="#252b28" stroke-width="1"/><line x1="26" x2="534" y1="90" y2="90" stroke="#252b28" stroke-width="1"/><line x1="26" x2="534" y1="26" y2="26" stroke="#252b28" stroke-width="1"/><text x="26" y="14" fill="#8b968f" font-size="9">2308</text><text x="26" y="173" fill="#8b968f" font-size="9" text-anchor="middle">09-05</text></svg>
-<div class="legend"><span><i style="background:#3ddc84"></i>Quiet Chain</span><span><i style="background:#ffb454"></i>Dead Trade</span></div></div>
-<div class="panel"><div class="head" style="margin-bottom:10px"><div><b>The Quiet Chain</b> <span class="sub">@thequietchain</span></div><div class="sub">4 subs &middot; 2,292 shorts &middot; 16 long</div></div>
-<table><tr><th>Video</th><th class="num">Views</th><th class="num">Likes</th><th class="num">Age</th></tr>
-<tr><td class="t">Your lost suitcase ends up in ONE town #shorts<span class="tag">SHORT</span></td><td class="num">1,190</td><td class="num">10</td><td class="num">19h</td></tr>
-<tr><td class="t">The moment your bag stops being yours #shorts<span class="tag">SHORT</span></td><td class="num">1,092</td><td class="num">25</td><td class="num">19h</td></tr>
-<tr><td class="t">What Happens To Your Lost Luggage<span class="tag">LONG</span></td><td class="num">16</td><td class="num">0</td><td class="num">20h</td></tr>
-<tr><td class="t">The strangest things left in lost luggage #sho<span class="tag">SHORT</span></td><td class="num">10</td><td class="num">0</td><td class="num">17h</td></tr>
-</table>
-<div class="k" style="margin-top:12px">Upcoming (8)</div><div class="sub">Shipping containers lost at sea &middot; Old tyres &middot; Expired supermarket food &middot; Old phones &middot; Old money</div>
-</div>
-<div class="panel"><div class="head" style="margin-bottom:10px"><div><b>The Dead Trade</b> <span class="sub">@thedeadtrade</span></div><div class="sub">2 subs &middot; 260 shorts &middot; 81 long</div></div>
-<table><tr><th>Video</th><th class="num">Views</th><th class="num">Likes</th><th class="num">Age</th></tr>
-<tr><td class="t">The most dangerous part isn&#x27;t the digging #sho<span class="tag">SHORT</span></td><td class="num">216</td><td class="num">3</td><td class="num">17h</td></tr>
-<tr><td class="t">Ancient Humans Slept Twice a Night. Nobody Tol<span class="tag">LONG</span></td><td class="num">60</td><td class="num">1</td><td class="num">24h</td></tr>
-<tr><td class="t">They Burned The Bowl Every Time #shorts<span class="tag">SHORT</span></td><td class="num">24</td><td class="num">1</td><td class="num">37h</td></tr>
-<tr><td class="t">There Is A Knock At The Door #shorts<span class="tag">SHORT</span></td><td class="num">19</td><td class="num">0</td><td class="num">37h</td></tr>
-<tr><td class="t">What Is A Sin Eater? The Man Who Ate Other Peo<span class="tag">LONG</span></td><td class="num">15</td><td class="num">0</td><td class="num">38h</td></tr>
-<tr><td class="t">POV: You&#x27;re a Tunnel Worker 30 Metres Down<span class="tag">LONG</span></td><td class="num">6</td><td class="num">0</td><td class="num">17h</td></tr>
-<tr><td class="t">He Wasn&#x27;t Poor. He Chose This. #shorts<span class="tag">SHORT</span></td><td class="num">1</td><td class="num">0</td><td class="num">37h</td></tr>
-</table>
-<div class="k" style="margin-top:12px">Upcoming (7)</div><div class="sub">Oil rig / offshore worker &middot; Deep sea welder &middot; Executioner &middot; Sewer worker &middot; Mortician</div>
-</div>
-</div>
-<div><div class="panel rail"><div class="k" style="margin-bottom:9px">Next up</div>
-<div class="item"><div class="when">Today<br>14:00</div><div class="what">print doesnt know its outdoors<span class="tag ">TH</span><span class="tag">threads</span></div></div>
-<div class="item"><div class="when">Today<br>19:00</div><div class="what">21 days and your bag is legally lost<span class="tag qc">QC</span><span class="tag">crop</span></div></div>
-<div class="item"><div class="when">Today<br>19:00</div><div class="what">21 days and your bag is legally lost<span class="tag qc">QC</span><span class="tag">full</span></div></div>
-<div class="item"><div class="when">Today<br>20:00</div><div class="what">where before what<span class="tag ">TH</span><span class="tag">threads</span></div></div>
-<div class="item"><div class="when">Sun 06<br>14:00</div><div class="what">the part behind the sign<span class="tag ">TH</span><span class="tag">threads</span></div></div>
-<div class="item"><div class="when">Sun 06<br>19:00</div><div class="what">Humans used to sleep TWICE a night<span class="tag dt">DT</span><span class="tag">crop</span></div></div>
-<div class="item"><div class="when">Sun 06<br>19:00</div><div class="what">Humans used to sleep TWICE a night<span class="tag dt">DT</span><span class="tag">full</span></div></div>
-<div class="item"><div class="when">Sun 06<br>20:00</div><div class="what">letter size is a distance<span class="tag ">TH</span><span class="tag">threads</span></div></div>
-<div class="item"><div class="when">Mon 07<br>08:00</div><div class="what">consumer fair book ahead<span class="tag ">LI</span><span class="tag">carousel</span></div></div>
-<div class="item"><div class="when">Mon 07<br>09:00</div><div class="what">Quiet Chain episode build<span class="tag qc">QC</span><span class="tag">episode</span></div></div>
-</div></div></div>
-</div>
-<div class="pane pane-so">
-<div class="head"><div><h1>Social</h1><div class="sub">LinkedIn + Instagram Mon/Wed/Fri/Sat &middot; Threads 2x daily</div></div></div>
-<div class="kpis">
-<div class="card"><div class="k">Carousels queued</div><div class="v">10</div><div class="delta">2 posted</div></div>
-<div class="card"><div class="k">Threads queued</div><div class="v">28</div><div class="delta">11 posted</div></div>
-<div class="card"><div class="k">Weekly cadence</div><div class="v">16<small> posts</small></div><div class="delta">3 LI + 3 IG + 10 TH</div></div>
-<div class="card"><div class="k">Queue runs out</div><div class="v" style="font-size:17px">2026-09-19</div></div>
-</div>
-<div class="cols"><div><div class="panel"><div class="k" style="margin-bottom:9px">Upcoming carousels</div><table><tr><th>Date</th><th>Topic</th></tr>
-<tr><td>2026-09-04 Fri</td><td class="t">plans a to g</td></tr>
-<tr><td>2026-09-05 Sat</td><td class="t">three queues not one</td></tr>
-<tr><td>2026-09-07 Mon</td><td class="t">consumer fair book ahead</td></tr>
-<tr><td>2026-09-09 Wed</td><td class="t">jawi first design</td></tr>
-<tr><td>2026-09-11 Fri</td><td class="t">cheaper quote four things</td></tr>
-<tr><td>2026-09-12 Sat</td><td class="t">reference photo wont build</td></tr>
-<tr><td>2026-09-14 Mon</td><td class="t">logo doesnt fabricate</td></tr>
-<tr><td>2026-09-16 Wed</td><td class="t">booth that stops people</td></tr>
-<tr><td>2026-09-18 Fri</td><td class="t">nobody proofreads the wording</td></tr>
-<tr><td>2026-09-19 Sat</td><td class="t">the wall decides the sign</td></tr>
-</table></div><div class="panel"><div class="k" style="margin-bottom:9px">Upcoming threads</div><table><tr><th>When</th><th>Topic</th></tr>
-<tr><td>2026-09-05 14:00</td><td class="t">print doesnt know its outdoors</td></tr>
-<tr><td>2026-09-05 20:00</td><td class="t">where before what</td></tr>
-<tr><td>2026-09-06 14:00</td><td class="t">the part behind the sign</td></tr>
-<tr><td>2026-09-06 20:00</td><td class="t">letter size is a distance</td></tr>
-<tr><td>2026-09-07 14:00</td><td class="t">the wall decides the sign</td></tr>
-<tr><td>2026-09-07 20:00</td><td class="t">lit sign two appearances</td></tr>
-<tr><td>2026-09-08 14:00</td><td class="t">sample is a different colour</td></tr>
-<tr><td>2026-09-08 20:00</td><td class="t">finish before colour</td></tr>
-<tr><td>2026-09-09 14:00</td><td class="t">where the water gets out</td></tr>
-<tr><td>2026-09-09 20:00</td><td class="t">before the keys</td></tr>
-<tr><td>2026-09-10 14:00</td><td class="t">change your mind deadline</td></tr>
-<tr><td>2026-09-10 20:00</td><td class="t">acrylic thickness lifespan</td></tr>
-</table></div></div>
-<div><div class="panel rail"><div class="k" style="margin-bottom:9px">Next up</div>
-<div class="item"><div class="when">Today<br>14:00</div><div class="what">print doesnt know its outdoors<span class="tag ">TH</span></div></div>
-<div class="item"><div class="when">Today<br>19:00</div><div class="what">21 days and your bag is legally lost<span class="tag qc">QC</span></div></div>
-<div class="item"><div class="when">Today<br>19:00</div><div class="what">21 days and your bag is legally lost<span class="tag qc">QC</span></div></div>
-<div class="item"><div class="when">Today<br>20:00</div><div class="what">where before what<span class="tag ">TH</span></div></div>
-<div class="item"><div class="when">Sun 06<br>14:00</div><div class="what">the part behind the sign<span class="tag ">TH</span></div></div>
-<div class="item"><div class="when">Sun 06<br>19:00</div><div class="what">Humans used to sleep TWICE a night<span class="tag dt">DT</span></div></div>
-<div class="item"><div class="when">Sun 06<br>19:00</div><div class="what">Humans used to sleep TWICE a night<span class="tag dt">DT</span></div></div>
-<div class="item"><div class="when">Sun 06<br>20:00</div><div class="what">letter size is a distance<span class="tag ">TH</span></div></div>
-<div class="item"><div class="when">Mon 07<br>08:00</div><div class="what">consumer fair book ahead<span class="tag ">LI</span></div></div>
-<div class="item"><div class="when">Mon 07<br>09:00</div><div class="what">Quiet Chain episode build<span class="tag qc">QC</span></div></div>
-</div></div></div></div>
-<div class="foot">Rebuilds 08:15, 13:15 and 21:15 Brunei. No tokens or secrets are written into this page.<br>Watch hours are an estimate at 50% retention until the Analytics backfill lands (24-48h lag).</div>
-</div></div></body></html>
+<script>window.__HQ__={"generated":"2026-09-05T12:20:07.956406+08:00","channels":[{"name":"The Quiet Chain","handle":"@thequietchain","key":"qc","colour":"#3ddc84","promise":"Hidden supply chains. Where ordinary things actually end up.","slate":["Shipping containers lost at sea","Old tyres","Expired supermarket food","Old phones","Old money","Unsold clothes","Donated clothes","Seized drugs"],"build_day":"Monday 09:00","subs":4,"videos":[{"id":"zLSKwqpU56I","title":"Your lost suitcase ends up in ONE town #shorts","views":1190,"likes":10,"kind":"short","secs":32,"hours":19.6,"published":"2026-09-04","est_min":317.3},{"id":"fN0LbfUkZ7w","title":"The moment your bag stops being yours #shorts","views":1092,"likes":25,"kind":"short","secs":22,"hours":19.5,"published":"2026-09-04","est_min":200.2},{"id":"nSAQOUQqri4","title":"What Happens To Your Lost Luggage","views":16,"likes":0,"kind":"long","secs":209,"hours":20.0,"published":"2026-09-04","est_min":27.9},{"id":"qBMgsSFw5eQ","title":"The strangest things left in lost luggage #shorts","views":10,"likes":0,"kind":"short","secs":22,"hours":17.3,"published":"2026-09-04","est_min":1.8}],"error":null,"short_views":2292,"long_views":16,"short_min":519.3,"long_min":27.9,"short_n":3,"long_n":1},{"name":"The Dead Trade","handle":"@thedeadtrade","key":"dt","colour":"#ffb454","promise":"Jobs that cost something. Dangerous and vanished trades.","slate":["Oil rig / offshore worker","Deep sea welder","Executioner","Sewer worker","Mortician","Repo man (aircraft)","Nuclear plant worker"],"build_day":"Thursday 09:00","subs":2,"videos":[{"id":"Py4KwqFsyik","title":"The most dangerous part isn't the digging #shorts","views":224,"likes":3,"kind":"short","secs":19,"hours":16.8,"published":"2026-09-04","est_min":35.5},{"id":"IKtiGPpYwa4","title":"Ancient Humans Slept Twice a Night. Nobody Told You Why.","views":60,"likes":1,"kind":"long","secs":367,"hours":24.4,"published":"2026-09-04","est_min":183.5},{"id":"escfGPnEVVM","title":"They Burned The Bowl Every Time #shorts","views":26,"likes":1,"kind":"short","secs":59,"hours":37.6,"published":"2026-09-03","est_min":12.8},{"id":"VEMWTRFE7go","title":"There Is A Knock At The Door #shorts","views":19,"likes":0,"kind":"short","secs":57,"hours":37.6,"published":"2026-09-03","est_min":9.0},{"id":"5wlDloRJc1c","title":"What Is A Sin Eater? The Man Who Ate Other People Sins","views":15,"likes":0,"kind":"long","secs":1033,"hours":37.8,"published":"2026-09-03","est_min":129.1},{"id":"JtvVyHWlP7I","title":"POV: You're a Tunnel Worker 30 Metres Down","views":6,"likes":0,"kind":"long","secs":209,"hours":16.8,"published":"2026-09-04","est_min":10.4},{"id":"CHuT55GL3sM","title":"He Wasn't Poor. He Chose This. #shorts","views":1,"likes":0,"kind":"short","secs":59,"hours":37.6,"published":"2026-09-03","est_min":0.5}],"error":null,"short_views":270,"long_views":81,"short_min":57.8,"long_min":323.0,"short_n":4,"long_n":3}],"costs":[{"episode":"Sin Eater","channel":"dt","images":238,"vo_chars":15701,"sfx_secs":56,"img_cost":35.7,"vo_cost":1.57,"sfx_cost":0.11,"anim_cost":0.0,"total":37.38,"minutes":17.2},{"episode":"Ancient Sleep","channel":"dt","images":72,"vo_chars":5784,"sfx_secs":0,"img_cost":10.8,"vo_cost":0.58,"sfx_cost":0.0,"anim_cost":0.0,"total":11.38,"minutes":6.1},{"episode":"Lost Luggage","channel":"qc","images":124,"vo_chars":3119,"sfx_secs":32,"img_cost":18.6,"vo_cost":0.31,"sfx_cost":0.06,"anim_cost":0.0,"total":18.98,"minutes":3.5},{"episode":"Tunnel Worker","channel":"dt","images":62,"vo_chars":3571,"sfx_secs":40,"img_cost":9.3,"vo_cost":0.36,"sfx_cost":0.08,"anim_cost":0.0,"total":9.74,"minutes":3.5}],"cost_total":77.48,"queue":{"posted":4,"pending":46,"days":23,"items":[{"title":"21 days and your bag is legally lost","fmt":"crop","ch":"qc"},{"title":"21 days and your bag is legally lost","fmt":"full","ch":"qc"},{"title":"Humans used to sleep TWICE a night","fmt":"crop","ch":"dt"},{"title":"Humans used to sleep TWICE a night","fmt":"full","ch":"dt"},{"title":"A third of your suitcase gets thrown away","fmt":"crop","ch":"qc"},{"title":"A third of your suitcase gets thrown away","fmt":"full","ch":"qc"},{"title":"What people did in the gap between sleeps","fmt":"crop","ch":"dt"},{"title":"What people did in the gap between sleeps","fmt":"full","ch":"dt"},{"title":"They found a live snake in a suitcase","fmt":"crop","ch":"qc"},{"title":"They found a live snake in a suitcase","fmt":"full","ch":"qc"},{"title":"They recreated a 1600s night in a lab","fmt":"crop","ch":"dt"},{"title":"They recreated a 1600s night in a lab","fmt":"full","ch":"dt"},{"title":"Somebody else is wearing your shirt","fmt":"crop","ch":"qc"},{"title":"Somebody else is wearing your shirt","fmt":"full","ch":"qc"},{"title":"Your hormones change in the night gap","fmt":"crop","ch":"dt"},{"title":"Your hormones change in the night gap","fmt":"full","ch":"dt"},{"title":"They didn't sleep lying flat","fmt":"crop","ch":"dt"},{"title":"They didn't sleep lying flat","fmt":"full","ch":"dt"},{"title":"Waking at 2am isn't broken sleep","fmt":"crop","ch":"dt"},{"title":"Waking at 2am isn't broken sleep","fmt":"full","ch":"dt"}]},"social":{"carousels":[{"date":"2026-09-04","day":"Fri","slug":"plans a to g"},{"date":"2026-09-05","day":"Sat","slug":"three queues not one"},{"date":"2026-09-07","day":"Mon","slug":"consumer fair book ahead"},{"date":"2026-09-09","day":"Wed","slug":"jawi first design"},{"date":"2026-09-11","day":"Fri","slug":"cheaper quote four things"},{"date":"2026-09-12","day":"Sat","slug":"reference photo wont build"},{"date":"2026-09-14","day":"Mon","slug":"logo doesnt fabricate"},{"date":"2026-09-16","day":"Wed","slug":"booth that stops people"},{"date":"2026-09-18","day":"Fri","slug":"nobody proofreads the wording"},{"date":"2026-09-19","day":"Sat","slug":"the wall decides the sign"}],"threads":[{"date":"2026-09-05","time":"14:00","slug":"print doesnt know its outdoors"},{"date":"2026-09-05","time":"20:00","slug":"where before what"},{"date":"2026-09-06","time":"14:00","slug":"the part behind the sign"},{"date":"2026-09-06","time":"20:00","slug":"letter size is a distance"},{"date":"2026-09-07","time":"14:00","slug":"the wall decides the sign"},{"date":"2026-09-07","time":"20:00","slug":"lit sign two appearances"},{"date":"2026-09-08","time":"14:00","slug":"sample is a different colour"},{"date":"2026-09-08","time":"20:00","slug":"finish before colour"},{"date":"2026-09-09","time":"14:00","slug":"where the water gets out"},{"date":"2026-09-09","time":"20:00","slug":"before the keys"},{"date":"2026-09-10","time":"14:00","slug":"change your mind deadline"},{"date":"2026-09-10","time":"20:00","slug":"acrylic thickness lifespan"},{"date":"2026-09-11","time":"14:00","slug":"fair date is not your deadline"},{"date":"2026-09-11","time":"20:00","slug":"plan for the second pass"},{"date":"2026-09-12","time":"14:00","slug":"who signs it off"},{"date":"2026-09-12","time":"20:00","slug":"nobody proofreads the wording"},{"date":"2026-09-13","time":"14:00","slug":"photo with no measurement"},{"date":"2026-09-13","time":"20:00","slug":"ask for your files back"},{"date":"2026-09-14","time":"14:00","slug":"access before install day"},{"date":"2026-09-14","time":"20:00","slug":"where the join lands"},{"date":"2026-09-15","time":"14:00","slug":"which face of the glass"},{"date":"2026-09-15","time":"20:00","slug":"the part you cannot rush"},{"date":"2026-09-16","time":"14:00","slug":"power to the wall"},{"date":"2026-09-16","time":"20:00","slug":"the page with no sign"},{"date":"2026-09-17","time":"14:00","slug":"clock starts at the last file"},{"date":"2026-09-17","time":"20:00","slug":"the wall is your background"},{"date":"2026-09-18","time":"14:00","slug":"who answers in a day"},{"date":"2026-09-18","time":"20:00","slug":"the old sign comes down"}]},"daily":{"qc":[["2026-09-05",2308]],"dt":[["2026-09-05",351]]}};</script>
+<script>
+const D = window.__HQ__;
+const $ = s => document.querySelector(s);
+const fmt = n => (n||0).toLocaleString();
+const mins = m => m>=60 ? (m/60).toFixed(1)+'h' : Math.round(m)+'m';
+let view = {page:'yt', ch:null};
+
+function chart(series, w=560, h=170){
+  const keys = Object.keys(series);
+  const all = keys.flatMap(k=>series[k].map(p=>p[1]));
+  if(!all.length) return '<div class="sub">No history yet. A point is added '
+    +'every time the dashboard rebuilds (3x daily).</div>';
+  const mx = Math.max(...all, 1), pad = 26;
+  const n = Math.max(...keys.map(k=>series[k].length), 2);
+  let g='';
+  [0,.5,1].forEach(f=>{const y=h-pad-(h-pad*2)*f;
+    g+=`<line x1="${pad}" x2="${w-pad}" y1="${y}" y2="${y}" stroke="#242b27"/>`;});
+  keys.forEach(k=>{
+    const s=series[k]; if(s.length<2) {
+      if(s.length===1){const x=pad,y=h-pad-(h-pad*2)*(s[0][1]/mx);
+        g+=`<circle cx="${x}" cy="${y}" r="3.5" fill="${k==='qc'?'#3ddc84':'#ffb454'}"/>`;}
+      return;}
+    const pts=s.map((p,i)=>{
+      const x=pad+(w-pad*2)*i/(n-1), y=h-pad-(h-pad*2)*(p[1]/mx);
+      return x.toFixed(1)+','+y.toFixed(1);}).join(' ');
+    g+=`<polyline fill="none" stroke="${k==='qc'?'#3ddc84':'#ffb454'}"
+        stroke-width="2.5" stroke-linejoin="round" points="${pts}"/>`;});
+  g+=`<text x="${pad}" y="13" fill="#87938c" font-size="9">${fmt(mx)}</text>`;
+  return `<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${g}</svg>`;
+}
+
+function nextUp(limit=10){
+  const out=[], now=new Date();
+  let d=new Date(now); if(now.getHours()>=19) d.setDate(d.getDate()+1);
+  const q=D.queue.items||[];
+  for(let i=0;i<Math.min(q.length,limit*2);i+=2){
+    const day=new Date(d); day.setDate(d.getDate()+i/2);
+    q.slice(i,i+2).forEach(c=>out.push({d:day,t:'19:00',
+      w:c.title,ch:c.ch.toUpperCase(),k:c.fmt}));
+  }
+  for(let k=0;k<21;k++){
+    const day=new Date(now); day.setDate(now.getDate()+k);
+    const wd=day.getDay();
+    if(wd===1) out.push({d:day,t:'09:00',w:'Quiet Chain episode build',ch:'QC',k:'episode'});
+    if(wd===4) out.push({d:day,t:'09:00',w:'Dead Trade episode build',ch:'DT',k:'episode'});
+  }
+  (D.social.carousels||[]).forEach(x=>out.push(
+    {d:new Date(x.date+'T08:00'),t:'08:00',w:x.slug,ch:'LI',k:'carousel'}));
+  (D.social.threads||[]).forEach(x=>out.push(
+    {d:new Date(x.date+'T'+x.time),t:x.time,w:x.slug,ch:'TH',k:''}));
+  return out.filter(x=>x.d>=new Date(now-72e5))
+            .sort((a,b)=>a.d-b.d).slice(0,limit);
+}
+
+function rail(){
+  const now=new Date();
+  return `<div class="panel"><h2>Next up</h2>`+nextUp(10).map(x=>{
+    const same=x.d.toDateString()===now.toDateString();
+    const lab=same?'Today':x.d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric'});
+    const cl=x.ch==='QC'?'qc':(x.ch==='DT'?'dt':'');
+    return `<div class="item"><div class="when">${lab}<br>${x.t}</div>
+      <div class="what">${x.w.slice(0,40)}<span class="tag ${cl}">${x.ch}</span>
+      ${x.k?`<span class="tag">${x.k}</span>`:''}</div></div>`;}).join('')+`</div>`;
+}
+
+function ytHome(){
+  const c=D.channels;
+  let h=`<div class="head"><div><h1>YouTube</h1><div class="sub">
+    2 shorts daily 19:00 &middot; episodes Mon + Thu 09:00</div></div></div>`;
+  h+=`<div class="kpis">`;
+  c.forEach(ch=>{
+    h+=`<div class="card click" onclick="go('yt','${ch.key}')">
+      <div class="k">${ch.name}</div>
+      <div class="v">${fmt(ch.short_views)}<small> shorts</small></div>
+      <div class="d">${fmt(ch.long_views)} long-form &middot; ${ch.subs} subs</div>
+      <div class="d g">${mins(ch.short_min)} + ${mins(ch.long_min)} watch</div></div>`;
+  });
+  const days=D.queue.days;
+  h+=`<div class="card click" onclick="go('queue')"><div class="k">Shorts queue</div>
+    <div class="v">${days}<small> days</small></div>
+    <div class="d ${days>3?'':'r'}">${D.queue.pending} clips ready</div></div>`;
+  h+=`<div class="card click" onclick="go('cost')"><div class="k">Total spend</div>
+    <div class="v">$${D.cost_total.toFixed(0)}</div>
+    <div class="d">${D.costs.length} episodes &middot; tap to break down</div></div>`;
+  h+=`</div>`;
+  h+=`<div class="cols"><div><div class="panel"><h2>Views per day</h2>
+    ${chart(D.daily)}<div class="legend">
+    <span><i style="background:#3ddc84"></i>Quiet Chain</span>
+    <span><i style="background:#ffb454"></i>Dead Trade</span></div></div>`;
+  c.forEach(ch=>{
+    h+=`<div class="panel"><div class="head" style="margin-bottom:9px">
+      <div><b>${ch.name}</b> <span class="sub">${ch.handle}</span></div>
+      <button class="back" onclick="go('yt','${ch.key}')">Open &rarr;</button></div>
+      <div class="stack">
+      <div><div class="k">Shorts</div><div class="v" style="font-size:19px">
+        ${fmt(ch.short_views)}</div><div class="d">${ch.short_n} videos &middot; ${mins(ch.short_min)}</div></div>
+      <div><div class="k">Long-form</div><div class="v" style="font-size:19px">
+        ${fmt(ch.long_views)}</div><div class="d">${ch.long_n} videos &middot; ${mins(ch.long_min)}</div></div>
+      <div><div class="k">Subscribers</div><div class="v" style="font-size:19px">
+        ${ch.subs}</div><div class="d">of 1,000 for YPP</div></div>
+      </div></div>`;});
+  h+=`</div><div>${rail()}</div></div>`;
+  return h;
+}
+
+function ytChannel(key){
+  const ch=D.channels.find(x=>x.key===key); if(!ch) return ytHome();
+  const yppMin=4000*60;
+  let h=`<button class="back" onclick="go('yt')">&larr; All channels</button>
+    <div class="head"><div><h1>${ch.name}</h1>
+    <div class="sub">${ch.handle} &middot; ${ch.promise}</div></div>
+    <div class="sub">Builds ${ch.build_day}</div></div>`;
+  h+=`<div class="kpis">
+    <div class="card"><div class="k">Shorts views</div><div class="v">${fmt(ch.short_views)}</div>
+      <div class="d">${ch.short_n} videos &middot; ${mins(ch.short_min)} watched</div></div>
+    <div class="card"><div class="k">Long-form views</div><div class="v">${fmt(ch.long_views)}</div>
+      <div class="d">${ch.long_n} videos &middot; ${mins(ch.long_min)} watched</div></div>
+    <div class="card"><div class="k">Subscribers</div>
+      <div class="v">${ch.subs}<small> / 1,000</small></div>
+      <div class="bar"><i style="width:${Math.min(100,ch.subs/10)}%"></i></div></div>
+    <div class="card"><div class="k">YPP watch hours</div>
+      <div class="v">${(ch.long_min/60).toFixed(1)}<small> / 4,000</small></div>
+      <div class="bar"><i style="width:${Math.min(100,ch.long_min/yppMin*100).toFixed(2)}%"></i></div>
+      <div class="d a">long-form only, est. 50% retention</div></div></div>`;
+  h+=`<div class="cols"><div>`;
+  ['short','long'].forEach(kind=>{
+    const v=ch.videos.filter(x=>x.kind===kind); if(!v.length) return;
+    h+=`<div class="panel"><h2>${kind==='short'?'Shorts':'Long-form'} (${v.length})</h2>
+      <table><tr><th>Video</th><th class="num">Views</th><th class="num">Likes</th>
+      <th class="num">Watch</th><th class="num">Age</th></tr>`;
+    v.forEach(x=>{h+=`<tr class="click" onclick="window.open('https://youtu.be/${x.id}')">
+      <td class="t">${x.title.slice(0,44)}</td><td class="num">${fmt(x.views)}</td>
+      <td class="num">${x.likes}</td><td class="num">${mins(x.est_min)}</td>
+      <td class="num">${Math.round(x.hours)}h</td></tr>`;});
+    h+=`</table></div>`;});
+  h+=`<div class="panel"><h2>Upcoming episodes</h2><table>`;
+  ch.slate.forEach((s,i)=>{h+=`<tr><td class="num" style="width:26px;color:#87938c">
+    ${i+1}</td><td class="t">${s}</td></tr>`;});
+  h+=`</table></div></div><div>${rail()}</div></div>`;
+  return h;
+}
+
+function costPage(){
+  let h=`<button class="back" onclick="go('yt')">&larr; Back</button>
+    <div class="head"><div><h1>Cost breakdown</h1>
+    <div class="sub">Counted from files on disk, not estimated</div></div>
+    <div class="sub">Total $${D.cost_total.toFixed(2)}</div></div>`;
+  h+=`<div class="panel"><table>
+    <tr><th>Episode</th><th class="num">Min</th><th class="num">Images</th>
+    <th class="num">Art</th><th class="num">VO</th><th class="num">SFX</th>
+    <th class="num">Anim</th><th class="num">Total</th><th class="num">$/min</th></tr>`;
+  D.costs.forEach(c=>{h+=`<tr><td class="t">${c.episode}
+    <span class="tag ${c.channel}">${c.channel.toUpperCase()}</span></td>
+    <td class="num">${c.minutes}</td><td class="num">${c.images}</td>
+    <td class="num">$${c.img_cost.toFixed(2)}</td>
+    <td class="num">$${c.vo_cost.toFixed(2)}</td>
+    <td class="num">$${c.sfx_cost.toFixed(2)}</td>
+    <td class="num" style="color:#3ddc84">$0.00</td>
+    <td class="num"><b>$${c.total.toFixed(2)}</b></td>
+    <td class="num">$${(c.total/Math.max(c.minutes,.1)).toFixed(2)}</td></tr>`;});
+  h+=`</table></div>
+  <div class="panel"><h2>Unit rates</h2><table>
+   <tr><td>Image (nano-banana-pro)</td><td class="num">$0.150 each</td></tr>
+   <tr><td>Voice (ElevenLabs Liam)</td><td class="num">$0.100 / 1k chars</td></tr>
+   <tr><td>Sound effects</td><td class="num">$0.002 / second</td></tr>
+   <tr><td>Animation (ffmpeg sprites)</td><td class="num" style="color:#3ddc84">free</td></tr>
+  </table><div class="sub" style="margin-top:9px">
+  Sprite compositing replaced AI video at $0.125 per 5s beat. On a 60-shot
+  episode that alone was $7.50.</div></div>`;
+  return h;
+}
+
+function queuePage(){
+  let h=`<button class="back" onclick="go('yt')">&larr; Back</button>
+    <div class="head"><div><h1>Shorts queue</h1>
+    <div class="sub">2 per day at 19:00 &middot; same clip in both framings</div></div>
+    <div class="sub">${D.queue.pending} clips &middot; ${D.queue.days} days</div></div>
+    <div class="panel"><table><tr><th>#</th><th>Clip</th><th>Channel</th><th>Framing</th></tr>`;
+  D.queue.items.forEach((c,i)=>{h+=`<tr><td class="num" style="color:#87938c">
+    ${Math.floor(i/2)+1}</td><td class="t">${c.title}</td>
+    <td><span class="tag ${c.ch}">${c.ch.toUpperCase()}</span></td>
+    <td>${c.fmt}</td></tr>`;});
+  return h+`</table></div>`;
+}
+
+function socialHome(){
+  const s=D.social;
+  let h=`<div class="head"><div><h1>Social</h1><div class="sub">
+    LinkedIn + Instagram Mon/Wed/Fri/Sat &middot; Threads 2x daily</div></div></div>
+    <div class="kpis">
+    <div class="card click" onclick="go('social','car')"><div class="k">Carousels</div>
+      <div class="v">${s.carousels.length}</div><div class="d">queued &middot; LinkedIn + IG</div></div>
+    <div class="card click" onclick="go('social','th')"><div class="k">Threads</div>
+      <div class="v">${s.threads.length}</div><div class="d">queued chains</div></div>
+    <div class="card"><div class="k">Weekly cadence</div><div class="v">16<small> posts</small></div>
+      <div class="d">3 LI + 3 IG + 10 TH</div></div>
+    <div class="card"><div class="k">Queue ends</div>
+      <div class="v" style="font-size:16px">${s.carousels.length?s.carousels[s.carousels.length-1].date:'-'}</div></div>
+    </div><div class="cols"><div>`;
+  h+=`<div class="panel"><h2>Carousels</h2><table>
+    <tr><th>Date</th><th>Topic</th></tr>`;
+  s.carousels.slice(0,14).forEach(x=>{h+=`<tr><td>${x.date} ${x.day}</td>
+    <td class="t">${x.slug}</td></tr>`;});
+  h+=`</table></div><div class="panel"><h2>Threads</h2><table>
+    <tr><th>When</th><th>Topic</th></tr>`;
+  s.threads.slice(0,14).forEach(x=>{h+=`<tr><td>${x.date} ${x.time}</td>
+    <td class="t">${x.slug}</td></tr>`;});
+  h+=`</table></div></div><div>${rail()}</div></div>`;
+  return h;
+}
+
+function nav(){
+  const n=[];
+  n.push(`<button class="nav ${view.page==='yt'&&!view.ch?'on':''}"
+    onclick="go('yt')">YouTube</button>`);
+  D.channels.forEach(c=>n.push(`<button class="nav sub ${view.ch===c.key?'on':''}"
+    onclick="go('yt','${c.key}')">${c.name}
+    <span class="n">${fmt(c.short_views+c.long_views)}</span></button>`));
+  n.push(`<div class="navlab">Social</div>`);
+  n.push(`<button class="nav ${view.page==='social'?'on':''}"
+    onclick="go('social')">All platforms</button>`);
+  n.push(`<div class="navlab">Ops</div>`);
+  n.push(`<button class="nav ${view.page==='queue'?'on':''}"
+    onclick="go('queue')">Shorts queue <span class="n">${D.queue.days}d</span></button>`);
+  n.push(`<button class="nav ${view.page==='cost'?'on':''}"
+    onclick="go('cost')">Costs <span class="n">$${D.cost_total.toFixed(0)}</span></button>`);
+  return n.join('');
+}
+
+function render(){
+  $('#nav').innerHTML=nav();
+  let h;
+  if(view.page==='yt') h = view.ch?ytChannel(view.ch):ytHome();
+  else if(view.page==='social') h = socialHome();
+  else if(view.page==='cost') h = costPage();
+  else if(view.page==='queue') h = queuePage();
+  $('#main').innerHTML = h + `<div class="foot">
+    Updated ${D.generated.slice(0,16).replace('T',' ')} Brunei &middot;
+    rebuilds 08:15, 13:15, 21:15.<br>
+    Watch time is estimated at 50% retention until YouTube Analytics
+    backfills (24-48h lag). No tokens are stored in this page.</div>`;
+  window.scrollTo(0,0);
+}
+function go(page,ch){ view={page,ch:ch||null};
+  history.replaceState(null,'','#'+page+(ch?'/'+ch:'')); render(); }
+window.go=go;
+(function(){const m=(location.hash||'#yt').slice(1).split('/');
+  view={page:m[0]||'yt',ch:m[1]||null}; render();})();
+</script>
+</body></html>
